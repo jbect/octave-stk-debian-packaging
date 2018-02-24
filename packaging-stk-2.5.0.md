@@ -108,4 +108,10 @@ Recording for next time: I should have used
 ```
 gbp clone git@salsa.debian.org:pkg-octave-team/octave-stk.git
 ```
-to clone the repo, instead of `git clone`.  This would have set up the `upstream` branch properly.
+to clone the repo, instead of `git clone`.  This would have set up the `upstream` branch properly.  Also,
+```
+git push --all --follow-tags
+```
+would have been a more efficient way to push everything at the end.
+
+Thanks to [Raphaël Laboissière](https://lists.debian.org/debian-octave/2018/02/msg00033.html) et [Mike Miller](https://lists.debian.org/debian-octave/2018/02/msg00035.html) for their advices.
