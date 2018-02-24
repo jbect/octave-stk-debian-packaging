@@ -164,3 +164,33 @@ $ licensecheck -r --copyright -c  '\.m|\.c|\.h' . | grep "Copy.*2017" | sort -u
 
 Comparing with the current `debian/control`, I noticed that the copyright information needed to be updated for LNE and EDF R&D, which resulted in the following changeset: [73c3cda0](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/73c3cda0edfdb19003dfaf129cd7ccda9726d920).
 
+## 2018-Feb-24, checking patches
+
+The next is to check the patches in `debian/patches/`.
+
+There are currently three of them:
+```
+$ cat debian/patches/series 
+0001-Remove-stk_config_testprivatemex.patch
+0002-Remove-the-MOLE.patch
+0003-Mark-expected-failure.patch
+```
+
+### First patch: `0001-Remove-stk_config_testprivatemex.patch`
+
+The first patch is out-dated:
+```
+$ dquilt push
+Applying patch 0001-Remove-stk_config_testprivatemex.patch
+patching file inst/stk_init.m
+Hunk #1 FAILED at 228.
+1 out of 1 hunk FAILED -- rejects in file inst/stk_init.m
+Patch 0001-Remove-stk_config_testprivatemex.patch can be reverse-applied
+```
+The reason is that the piece of code that was removed by this patch no longer exists in STK 2.5.0 (see upstream changeset [acb746f5be77](https://sourceforge.net/p/kriging/hg/ci/acb746f5be77d5eef773b67916db1358eba8824a/). The patch is thus obsolete, and can be removed:
+```
+$ git rm debian/patches/0001-Remove-stk_config_testprivatemex.patch 
+$ emacs debian/patches/series  ## -> remove corresponding line
+$ git add debian/patches/series 
+$ git commit -m "d/patches: Remove patch 0001, no longer needed"
+```
