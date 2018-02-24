@@ -115,3 +115,52 @@ git push --all --follow-tags
 would have been a more efficient way to push everything at the end.
 
 Thanks to [Raphaël Laboissière](https://lists.debian.org/debian-octave/2018/02/msg00033.html) et [Mike Miller](https://lists.debian.org/debian-octave/2018/02/msg00035.html) for their advices.
+
+
+## 2018-Feb-24, updating copyright information
+
+The next step was to update the copyright information in `debian/copyright`.
+
+Since I was looking for changes occuring in 2017, I used the following:
+```
+$ licensecheck -r --copyright -c  '\.m|\.c|\.h' . | grep "Copy.*2017" | sort -u
+  [Copyright: 2015-2017 CentraleSupelec]
+  [Copyright: 2015, 2017 CentraleSupelec]
+  [Copyright: 2015-2017 CentraleSupelec / 2011-2014 SUPELEC]
+  [Copyright: 2015-2017 CentraleSupelec / 2012-2013 SUPELEC]
+  [Copyright: 2015, 2017 CentraleSupelec / 2012-2014 SUPELEC]
+  [Copyright: 2015-2017 CentraleSupelec / 2013-2014 SUPELEC]
+  [Copyright: 2015, 2017 CentraleSupelec / 2013-2014 SUPELEC]
+  [Copyright: 2015, 2017 CentraleSupelec / 2013 SUPELEC]
+  [Copyright: 2015-2017 CentraleSupelec / 2014 SUPELEC]
+  [Copyright: 2015, 2017 CentraleSupelec / 2014 SUPELEC]
+  [Copyright: 2015-2017 CentraleSupelec / 2014 SUPELEC & A. Ravisankar]
+  [Copyright: 2015-2017 CentraleSupelec / 2014 SUPELEC & A. Ravisankar / 2011-2013 SUPELEC]
+  [Copyright: 2015-2017 CentraleSupelec / 2014 SUPELEC & A. Ravisankar / 2013 SUPELEC]
+  [Copyright: 2016-2017 CentraleSupelec]
+  [Copyright: 2016-2017 CentraleSupelec / 2012-2014 SUPELEC]
+  [Copyright: 2016-2017 CentraleSupelec / 2013-2014 SUPELEC]
+  [Copyright: 2016-2017 CentraleSupelec / 2013 Valentin Resseguier / 2012-2014 SUPELEC]
+  [Copyright: 2016-2017 CentraleSupelec / 2014 SUPELEC]
+  [Copyright: 2016 EDF R&D / 2015-2017 CentraleSupelec / 2013-2014 SUPELEC]
+  [Copyright: 2017 Centrale]
+  [Copyright: 2017 CentraleSupelec]
+  [Copyright: 2017 CentraleSupelec / 2011-2014 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2012-2013 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2012-2014 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2012 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2013-2014 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2013 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2014 Supelec]
+  [Copyright: 2017 CentraleSupelec / 2014 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2014 SUPELEC / 2013 Alexandra Krauth, Elham Rahali & SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2015 CentraleSupelec & LNE / 2011-2014 SUPELEC]
+  [Copyright: 2017 CentraleSupelec / 2016 IRT SystemX]
+  [Copyright: 2017 CentraleSupelec & LNE]
+  [Copyright: 2017 LNE / 2017 CentraleSupelec]
+  [Copyright: bastien Villemot <sebastien@debian.org> Fri, 13 Oct 2017 19:38:10 +0200]
+  [Copyright: EDF R&D / 2016-2017 CentraleSupelec]
+```
+
+Comparing with the current `debian/control`, I noticed that the copyright information needed to be updated for LNE and EDF R&D, which resulted in the following changeset: [73c3cda0](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/73c3cda0edfdb19003dfaf129cd7ccda9726d920).
+
