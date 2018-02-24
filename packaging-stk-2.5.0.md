@@ -102,3 +102,10 @@ To salsa.debian.org:pkg-octave-team/octave-stk.git
    dab04d7..5e32dcc  master -> master
 ```
 
+## 2018-Feb-24, importing from upstream (bis)
+
+Recording for next time: I should have used
+```
+gbp clone git@salsa.debian.org:pkg-octave-team/octave-stk.git
+```
+to clone the repo, instead of `git clone`.  This would have set up the `upstream` branch properly.
