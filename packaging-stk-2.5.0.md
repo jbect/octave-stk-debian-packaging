@@ -166,7 +166,7 @@ Comparing with the current `debian/control`, I noticed that the copyright inform
 
 ## 2018-Feb-24, checking patches
 
-The next is to check the patches in `debian/patches/`.
+The next step is to check the patches in `debian/patches/`.
 
 There are currently three of them:
 ```
@@ -178,7 +178,7 @@ $ cat debian/patches/series
 
 ### First patch: `0001-Remove-stk_config_testprivatemex.patch`
 
-The first patch is out-dated:
+The first patch is outdated:
 ```
 $ dquilt push
 Applying patch 0001-Remove-stk_config_testprivatemex.patch
@@ -193,4 +193,44 @@ $ git rm debian/patches/0001-Remove-stk_config_testprivatemex.patch
 $ emacs debian/patches/series  ## -> remove corresponding line
 $ git add debian/patches/series 
 $ git commit -m "d/patches: Remove patch 0001, no longer needed"
+```
+
+### Second patch: `0002-Remove-the-MOLE.patch`
+
+The second patch is outdated too:
+```
+$ dquilt push
+Applying patch 0002-Remove-the-MOLE.patch
+patching file inst/misc/mole/linsolve/linsolve.m
+patching file inst/misc/parallel/stk_parallel_start.m
+Hunk #1 FAILED at 33.
+1 out of 1 hunk FAILED -- rejects in file inst/misc/parallel/stk_parallel_start.m
+patching file inst/stk_init.m
+Hunk #2 FAILED at 124.
+Hunk #3 FAILED at 144.
+Hunk #4 succeeded at 178 (offset -2 lines).
+Hunk #5 FAILED at 286.
+3 out of 5 hunks FAILED -- rejects in file inst/stk_init.m
+patching file inst/misc/optim/@stk_optim_octavesqp/stk_optim_octavesqp.m
+Hunk #1 FAILED at 69.
+1 out of 1 hunk FAILED -- rejects in file inst/misc/optim/@stk_optim_octavesqp/stk_optim_octavesqp.m
+patching file inst/misc/mole/isrow/isrow.m
+patching file inst/misc/mole/quantile/quantile.m
+Hunk #1 FAILED at 1.
+Not deleting file inst/misc/mole/quantile/quantile.m as content differs from patch
+1 out of 1 hunk FAILED -- rejects in file inst/misc/mole/quantile/quantile.m
+The next patch would delete the file inst/misc/mole/isoctave/isoctave.m,
+which does not exist!  Applying it anyway.
+patching file inst/misc/mole/isoctave/isoctave.m
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- rejects in file inst/misc/mole/isoctave/isoctave.m
+patching file inst/misc/mole/graphics_toolkit/graphics_toolkit.m
+Hunk #1 FAILED at 1.
+Not deleting file inst/misc/mole/graphics_toolkit/graphics_toolkit.m as content differs from patch
+1 out of 1 hunk FAILED -- rejects in file inst/misc/mole/graphics_toolkit/graphics_toolkit.m
+patching file inst/misc/options/stk_options_set.m
+Hunk #1 FAILED at 123.
+1 out of 1 hunk FAILED -- rejects in file inst/misc/options/stk_options_set.m
+patching file post_install.m
+Patch 0002-Remove-the-MOLE.patch does not apply (enforce with -f)
 ```
