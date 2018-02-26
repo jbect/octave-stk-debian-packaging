@@ -333,4 +333,34 @@ debian/rules:5: recipe for target 'clean' failed
 make: *** [clean] Error 2
 gbp:error: 'git-pbuilder' failed: it exited with 2
 ```
-WTF ?!?  Apparently the package dh-octave is needed but not found. This seems to be something new related to the recent changes operated by the DoG. __What is the proper way to get the missing package inside my pbuilder environment ?__
+WTF ?!?  Apparently the package dh-octave is needed but not found. This seems to be something new related to the recent changes operated by the DoG. What is the proper way to get the missing package inside my pbuilder environment ?
+
+### Testing with cowbuilder (bis)
+
+Let us try with a base pbuilder image:
+```
+$ sudo cowbuilder --create
+#=== ... blah blah ... very verbose output ...
+
+$ gbp buildpackage --git-export-dir=../build --git-pbuilder
+gbp:info: Building with (cowbuilder) for sid
+gbp:info: Exporting 'HEAD' to '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-tmp'
+gbp:info: Moving '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-tmp' to '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-2.5.0'
+Building with cowbuilder for distribution sid
++ pdebuild --buildresult ../ --pbuilder cowbuilder --debbuildopts '' -- --basepath /var/cache/pbuilder/base.cow
+W: /home/bect/.pbuilderrc does not exist
+I: using cowbuilder as pbuilder
+dpkg-checkbuilddeps: error: Unmet build dependencies: debhelper (>= 11) dh-octave
+W: Unmet build-dependency in source
+dpkg-source: info: applying 0002-Remove-the-MOLE.patch
+dpkg-source: info: applying 0003-Mark-expected-failure.patch
+dh clean --buildsystem=octave --with=octave
+dh: unable to load addon octave: Can't locate Debian/Debhelper/Sequence/octave.pm in @INC (you may need to install the Debian::Debhelper::Sequence::octave module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.24.1 /usr/local/share/perl/5.24.1 /usr/lib/x86_64-linux-gnu/perl5/5.24 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.24 /usr/share/perl/5.24 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at (eval 15) line 2.
+BEGIN failed--compilation aborted at (eval 15) line 2.
+
+debian/rules:5: recipe for target 'clean' failed
+make: *** [clean] Error 2
+gbp:error: 'git-pbuilder' failed: it exited with 2
+```
+
+Same problem...
