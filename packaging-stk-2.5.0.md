@@ -234,3 +234,11 @@ Hunk #1 FAILED at 123.
 patching file post_install.m
 Patch 0002-Remove-the-MOLE.patch does not apply (enforce with -f)
 ```
+
+## 2018-Feb-25, still checking patches...
+
+### Second patch: `0002-Remove-the-MOLE.patch`
+
+The reason why this patch has become outdated is, for the most part, that the function `isoctave` has been removed from the upstream package.  A few adaptations are thus needed...
+
+Here is the resulting commit on salsa: [c75c2aa4](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/c75c2aa41a23f32ce17236751143f9d9dd9c9ee2).
