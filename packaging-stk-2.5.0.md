@@ -286,3 +286,51 @@ Gbp-Dch: Ignore"
 
 $ git push
 ```
+
+### Testing with cowbuilder
+
+Let us first try to build the package in amd64/unstable:
+```
+$ sudo -E cowbuilder --create --basepath /var/cache/pbuilder/base-sid-amd64.cow --architecture amd64 --distribution sid
+#=== ... blah blah ... very verbose output ...
+
+$ gbp buildpackage --git-export-dir=../build --git-pbuilder --git-arch=amd64 --git-dist=sid
+gbp:info: Building with (cowbuilder) for sid:amd64
+gbp:info: Exporting 'HEAD' to '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-tmp'
+gbp:info: Moving '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-tmp' to '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-2.5.0'
+Building with cowbuilder for distribution sid, architecture amd64
++ pdebuild --buildresult ../ --pbuilder cowbuilder --debbuildopts '' -- --architecture amd64 --basepath /var/cache/pbuilder/base-sid-amd64.cow
+W: /home/bect/.pbuilderrc does not exist
+I: using cowbuilder as pbuilder
+dpkg-parsechangelog: warning:     debian/changelog(l13): badly formatted trailer line
+LINE:  -- Julien Bect <julien.bect@centralesupelec.fr> Mon, 26 Feb 2018 09:08:11 +0100
+#=== stopping here to fix the warning
+```
+
+Ooops.  This first test reveals that I have made a formatting mistake (missing white space) when manually editing the trailer line in the changelog.
+
+This is fixed in the following changeset: [fe7021b2](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/fe7021b272a7fa873ff5fa5a07d75a1127372005).
+
+Let's try again:
+```
+$ gbp buildpackage --git-export-dir=../build --git-pbuilder --git-arch=amd64 --git-dist=sid
+gbp:info: Building with (cowbuilder) for sid:amd64
+gbp:info: Exporting 'HEAD' to '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-tmp'
+gbp:info: Moving '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-tmp' to '/home/bect/repo/gitlab-debian/pkg-octave-team/build/octave-stk-2.5.0'
+Building with cowbuilder for distribution sid, architecture amd64
++ pdebuild --buildresult ../ --pbuilder cowbuilder --debbuildopts '' -- --architecture amd64 --basepath /var/cache/pbuilder/base-sid-amd64.cow
+W: /home/bect/.pbuilderrc does not exist
+I: using cowbuilder as pbuilder
+dpkg-checkbuilddeps: error: Unmet build dependencies: debhelper (>= 11) dh-octave
+W: Unmet build-dependency in source
+dpkg-source: info: applying 0002-Remove-the-MOLE.patch
+dpkg-source: info: applying 0003-Mark-expected-failure.patch
+dh clean --buildsystem=octave --with=octave
+dh: unable to load addon octave: Can't locate Debian/Debhelper/Sequence/octave.pm in @INC (you may need to install the Debian::Debhelper::Sequence::octave module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.24.1 /usr/local/share/perl/5.24.1 /usr/lib/x86_64-linux-gnu/perl5/5.24 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.24 /usr/share/perl/5.24 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at (eval 15) line 2.
+BEGIN failed--compilation aborted at (eval 15) line 2.
+
+debian/rules:5: recipe for target 'clean' failed
+make: *** [clean] Error 2
+gbp:error: 'git-pbuilder' failed: it exited with 2
+```
+WTF ?!?  Apparently the package dh-octave is needed but not found. This seems to be something new related to the recent changes operated by the DoG. __What is the proper way to get the missing package inside my pbuilder environment ?__
