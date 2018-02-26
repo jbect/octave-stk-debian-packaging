@@ -242,3 +242,32 @@ Patch 0002-Remove-the-MOLE.patch does not apply (enforce with -f)
 The reason why this patch has become outdated is, for the most part, that the function `isoctave` has been removed from the upstream package.  A few adaptations are thus needed...
 
 Here is the resulting commit on salsa: [c75c2aa4](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/c75c2aa41a23f32ce17236751143f9d9dd9c9ee2).
+
+### Third (and last) patch: `0003-Mark-expected-failure.patch`
+
+The last patch also needs to be updated...
+```
+$ dquilt push
+Applying patch 0003-Mark-expected-failure.patch
+can't find file to patch at input line 11
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|Description: Mark one unit test as expected failure
+|Author: Julien Bect <julien.bect@centralesupelec.fr>
+|Bug-Debian: https://bugs.debian.org/876777
+|Forwarded: no
+|Reviewed-By: Sébastien Villemot <sebastien@debian.org>
+|Last-Update: 2017-10-13
+|---
+|This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+|--- a/inst/paramestim/stk_param_init.m
+|+++ b/inst/paramestim/stk_param_init.m
+--------------------------
+No file to patch.  Skipping patch.
+1 out of 1 hunk ignored
+```
+
+But this one is easy: the target file has just been moved to a different location :wink:
+
+Here is the resulting changset: [9055352f ](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/9055352ff0e888030d4feff34cc6dd516023223f).
