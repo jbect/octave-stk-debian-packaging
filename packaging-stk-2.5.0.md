@@ -271,3 +271,18 @@ No file to patch.  Skipping patch.
 But this one is easy: the target file has just been moved to a different location :wink:
 
 Here is the resulting changset: [9055352f ](https://salsa.debian.org/pkg-octave-team/octave-stk/commit/9055352ff0e888030d4feff34cc6dd516023223f).
+
+### Generating the ChangeLog entry
+
+This part is easy:
+```
+$ gbp dch -aR
+gbp:info: Found tag for topmost changelog version '80784669b495f7d7594d3eacd4e30ae3b49c8b50'
+gbp:info: Continuing from commit '80784669b495f7d7594d3eacd4e30ae3b49c8b50'
+
+$ git commit -m "Changelog entry for version 2.5.0-1
+
+Gbp-Dch: Ignore"
+
+$ git push
+```
