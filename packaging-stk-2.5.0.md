@@ -114,7 +114,7 @@ git push --all --follow-tags
 ```
 would have been a more efficient way to push everything at the end.
 
-Thanks to [Raphaël Laboissière](https://lists.debian.org/debian-octave/2018/02/msg00033.html) et [Mike Miller](https://lists.debian.org/debian-octave/2018/02/msg00035.html) for their advices.
+Thanks to [Rafael Laboissière](https://lists.debian.org/debian-octave/2018/02/msg00033.html) et [Mike Miller](https://lists.debian.org/debian-octave/2018/02/msg00035.html) for their advices.
 
 
 ## 2018-Feb-24, updating copyright information
