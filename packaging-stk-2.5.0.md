@@ -402,3 +402,11 @@ gbp:error: 'git-pbuilder' failed: it exited with 2
 ```
 
 Still the same...
+
+### 27-Feb-2018, Epilogue
+
+I finally gave up using cowbuilder or sbuild, after a few more unsuccessful attempts (see: [mailing list thread](https://lists.debian.org/debian-octave/2018/02/msg00039.html)).
+
+Anyway, octave-stk 2.5.0-1 has now been [accepted into unstable](https://tracker.debian.org/news/936641) :smiley:.
+
+Next time: simply test in a [sid chroot](https://wiki.debian.org/chroot) using `gbp buildpackage` and let my sponsor worry about build dependencies...
